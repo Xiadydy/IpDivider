@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16.0dip</dimen>
+    <dimen name="activity_vertical_margin">16.0dip</dimen>
+    <dimen name="main_text_big">30.0sp</dimen>
+    <dimen name="main_text_mid">23.0sp</dimen>
+    <dimen name="main_text_samll">18.0sp</dimen>
+    <dimen name="main_text_more_samll">15.0sp</dimen>
+    <dimen name="main_text_samllest">13.0sp</dimen>
+    <dimen name="botton_btn_height">50.0dip</dimen>
+</resources>

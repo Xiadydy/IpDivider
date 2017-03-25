@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/white"
+             android:orientation="vertical"
+             android:padding="1.0dip">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/bg_blue">
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="0.0dip"
+            android:layout_height="35.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="子网1:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_text_samll"/>
+
+        <ImageView
+            android:id="@id/diver_line"
+            android:layout_width="1.0px"
+            android:layout_height="35.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            android:id="@id/name"
+            android:layout_width="0.0dip"
+            android:layout_height="35.0dip"
+            android:layout_weight="3.0"
+            android:gravity="center"
+            android:text="办公室"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_text_samll"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            style="@style/ResultItem_first_text"
+            android:text="@string/the_network_segment"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            android:id="@id/segment"
+            style="@style/ResultItem_second_text"
+            android:text="0"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            style="@style/ResultItem_first_text"
+            android:text="@string/range"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            android:id="@id/ip_range"
+            style="@style/ResultItem_second_text"
+            android:text="0"
+            android:textSize="@dimen/main_text_samllest"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            style="@style/ResultItem_first_text"
+            android:text="@string/mask"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            android:id="@id/mask_num"
+            style="@style/ResultItem_second_text"
+            android:text="0"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <TextView
+            style="@style/ResultItem_first_text"
+            android:text="@string/used"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="40.0dip"
+            android:layout_weight="3.0">
+
+            <TextView
+                android:id="@id/ip_count"
+                style="@style/ResultItem_second_text"
+                android:text="0"/>
+
+            <ImageView
+                android:layout_width="1.0px"
+                android:layout_height="40.0dip"
+                android:background="@color/text_grey"/>
+
+            <TextView
+                style="@style/ResultItem_first_text"
+                android:layout_width="wrap_content"
+                android:text="@string/unused"/>
+
+            <ImageView
+                android:layout_width="1.0px"
+                android:layout_height="40.0dip"
+                android:background="@color/text_grey"/>
+
+            <TextView
+                android:id="@id/nouse_ip_count"
+                style="@style/ResultItem_second_text"
+                android:text="0"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="40.0dip"
+            android:background="@color/text_grey"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0"
+            android:background="@color/text_grey"/>
+    </TableRow>
+</TableLayout>

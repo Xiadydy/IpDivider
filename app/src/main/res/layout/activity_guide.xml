@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <LinearLayout
+        android:id="@id/dotLinaerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24.0dip"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:padding="15.0dip"
+            android:src="@drawable/dot_selector"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:padding="15.0dip"
+            android:src="@drawable/dot_selector"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:padding="15.0dip"
+            android:src="@drawable/dot_selector"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:padding="15.0dip"
+            android:src="@drawable/dot_selector"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/guideBtnLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/dotLinaerLayout"
+        android:layout_centerHorizontal="true"
+        android:configChanges="locale"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@id/btnStartUse"
+            android:layout_width="90.0dip"
+            android:layout_height="50.0dip"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/guide_start_selector"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:text="@string/begin2use"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_text_samll"/>
+
+        <CheckBox
+            android:id="@id/check_noMoreGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/no_more_guide"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@id/order"
+        android:layout_width="0.0dip"
+        android:layout_height="50.0dip"
+        android:layout_margin="3.0dip"
+        android:layout_weight="0.7"
+        android:background="@color/white"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="1"
+        android:textColor="@color/text_blue"
+        android:textSize="@dimen/main_text_mid"/>
+
+    <TextView
+        android:id="@id/project_name"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="2.0"
+        android:background="@color/white_transparent"
+        android:ellipsize="end"
+        android:gravity="center|left"
+        android:paddingLeft="10.0dip"
+        android:singleLine="true"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_samll"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@id/date"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="2.0"
+        android:background="@color/white_transparent"
+        android:ellipsize="end"
+        android:gravity="center|right"
+        android:paddingRight="10.0dip"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_samll"/>
+</LinearLayout>

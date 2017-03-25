@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light" />
+    <style name="AppTheme" parent="@style/AppBaseTheme" />
+    <style name="StepsDeclare">
+        <item name="android:textSize">@dimen/main_text_more_samll</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:padding">4.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ResultItem">
+        <item name="android:textSize">@dimen/main_text_samll</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+    </style>
+    <style name="Title">
+        <item name="android:textSize">@dimen/main_text_samll</item>
+        <item name="android:textColor">@color/bg_blue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="ResultItem_second_text" parent="@style/ResultItem">
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:layout_weight">3.0</item>
+    </style>
+    <style name="ResultItem_first_text" parent="@style/ResultItem">
+        <item name="android:layout_weight">1.0</item>
+    </style>
+</resources>

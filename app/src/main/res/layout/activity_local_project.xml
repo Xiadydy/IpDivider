@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/bg_light_blue"
+              android:configChanges="locale"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/bg_blue"
+        android:gravity="center"
+        android:text="@string/the_solutions"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_mid"/>
+
+    <TextView
+        android:id="@id/noResultWarnning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:drawableLeft="@drawable/no_result"
+        android:gravity="center"
+        android:text="@string/no_result"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/main_text_big"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@id/project_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0"
+        android:background="@color/white_transparent"
+        android:divider="@color/white"
+        android:dividerHeight="0.5dip"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="3.0dip"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/botton_btn_height"
+        android:background="@color/white_transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@id/btn_back"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_back_selector"
+            android:src="@drawable/btn_back"/>
+    </LinearLayout>
+</LinearLayout>
