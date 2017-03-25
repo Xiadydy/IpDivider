@@ -82,10 +82,10 @@ public class ResultActivity extends BaseActivity implements OnClickListener
                     public void onClick(final View view) {
                         final TextProjectBuilder textProjectBuilder = new TextProjectBuilder();
                         if (!ResultActivity.this.toTextdialog.getText().trim().equals("")) {
-                            String projectName = toTextdialog.getText();
-                            textProjectBuilder.deconstruct(new Project(projectName, ResultActivity.this.result));
+                            String project = toTextdialog.getText();
+                            textProjectBuilder.deconstruct(new Project(project, ResultActivity.this.result));
                             ResultActivity.this.toTextdialog.dismiss();
-                            SuperToast.makeText(ResultActivity.this.mContext, ResultActivity.this.getString(R.string.export_success), String.valueOf(ResultActivity.this.getString(R.string.export_path)) + ":\n" + Constant.Storage.SD_PATH + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE + File.separator + ResultActivity.this.projectName + ".xls", 2500).showInCenter();
+                            SuperToast.makeText(ResultActivity.this.mContext, ResultActivity.this.getString(R.string.export_success), String.valueOf(ResultActivity.this.getString(R.string.export_path)) + ":\n" + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE + File.separator + project + ".xls", 2500).showInCenter();
                             return;
                         }
                         System.err.println("projectName is null");

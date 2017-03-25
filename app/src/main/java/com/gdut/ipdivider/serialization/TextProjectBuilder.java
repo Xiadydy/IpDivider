@@ -47,6 +47,14 @@ public class TextProjectBuilder extends BaseBuilder<Project, String>
             file.mkdirs();
         }
         final File file2 = new File(String.valueOf(file.getAbsolutePath()) + File.separator + project.getProjectName() + ".xls");
+        if(!file2.exists()){
+            try {
+                file2.createNewFile();
+            } catch (IOException e) {
+                System.err.println("创建文件失败");
+                e.printStackTrace();
+            }
+        }
         System.out.println(file2.getAbsoluteFile());
         List<SubNetInfomationBean> result = project.getResult();
         List<Map<String, Object>> data = StatService.object2Map(result);

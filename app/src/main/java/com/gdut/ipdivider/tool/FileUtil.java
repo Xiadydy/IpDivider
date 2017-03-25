@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import jxl.Workbook;
 import jxl.write.Label;
+import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -78,9 +79,11 @@ public class FileUtil {
 	private void addExcelSheetRows(WritableSheet sheet, List<Map<String, Object>> data, String[] titles, String[] keys)
 			throws RowsExceededException, WriteException {
 		if (sheet != null && !data.isEmpty() && isNotEmpty(titles) && isNotEmpty(keys)) {
+			WritableCellFormat wc = new WritableCellFormat();
 			int rowIndex = 1;
 			int columnIndex = 0;
 			for (String title : titles) {
+				sheet.setColumnView(columnIndex,170);
 				sheet.addCell(new Label(columnIndex++, 0, title));
 			}
 			String value = null;

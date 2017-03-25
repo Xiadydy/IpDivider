@@ -59,11 +59,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     }
 
     private Boolean checkInputAndSetting() {
+        if(TextUtils.isEmpty(this.resMask.getText())){
+            SuperToast.makeText(this.mContext, this.getString(R.string.error),  "掩码尚未完成填写", 1000).showInCenter();
+            return false;
+        }
         this.receiveParam = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
         this.sumIPneed = 0;
         this.sumIPOffer = IPv4Util.getAllIpCount(getIPSrc(), Integer.parseInt(this.resMask.getText().toString()));
         int n = 1;
         for (final SubNetInfomationBeanDto dto: this.receiveParam) {
+            if(dto.getNeedIpCount() == null || dto.getSubMaskName() == null){
+                SuperToast.makeText(this.mContext, this.getString(R.string.error), String.valueOf(this.getString(R.string.subnet)) + n + "尚未完成所需字段填写", 1000).showInCenter();
+                return false;
+            }
             final int ipCount = dto.getNeedIpCount();
             if (ipCount == 0) {
                 SuperToast.makeText(this.mContext, this.getString(R.string.error), String.valueOf(this.getString(R.string.subnet)) + n + this.getString(R.string.required_IP_number_can_not_be_0), 1000).showInCenter();
@@ -84,6 +92,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private String getIPSrc() {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 4; ++i) {
+            if(TextUtils.isEmpty(this.resIp[i].getText())){
+                SuperToast.makeText(this.mContext, this.getString(R.string.error), "网段地址没有配置,请重新配置", 1000).showInCenter();
+                return null;
+            }
             sb.append(String.valueOf(this.resIp[i].getText().toString().trim()) + ".");
         }
         final String string = sb.toString();
