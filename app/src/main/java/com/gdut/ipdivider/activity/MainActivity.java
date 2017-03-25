@@ -83,9 +83,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         return true;
     }
 
-    private int dealWithIPsrc(final int n, final double n2) {
-        return (int) ((n / n2) *  n2);
-    }
 
     //修改IP拼接
     private String getIPSrc() {
@@ -98,9 +95,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
             //}
         }
         final String string = sb.toString();
-        //final String substring = string.substring(0, string.length() - 1);
-        System.out.println("getIPSrc = " + string);
-        return string;
+        final String substring = string.substring(0, string.length() - 1);
+        System.out.println("getIPSrc = " + substring);
+        return substring;
     }
 
     private int getSubnetNum() {
@@ -185,6 +182,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                     this.data = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
                     this.subnetSettingdata.add(new SubnetEntity());
                     Log.i("data", new StringBuilder(String.valueOf(this.data.size())).toString());
+                    MainActivity.this.subNetNum.setText(String.valueOf(Integer.valueOf(MainActivity.this.subNetNum.getText().toString().trim())+1));
                     this.subnetSettingAdapter.notifyDataSetChanged();
                     this.AdjustListView2Full(this.subnetSetting);
                     return;

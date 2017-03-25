@@ -28,20 +28,26 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     private Context mContext;
     private int[] nowIPStart;
     private String projectName;
-    private int resMask;
     private ResultAdapter resultAdapter;
     private Dialog toTextdialog;
+    //lvdi start
+    private String ip;
+    private List<SubNetInfomationBean> result;
+    private String resMask;
 
     public ResultActivity() {
         this.IpSrc = new int[4];
         this.nowIPStart = new int[4];
-        this.resMask = 0;
+        this.resMask = "";
+        this.ip = "";
     }
 
     private void initData() {
         this.intent = this.getIntent();
         final Bundle bundleExtra = this.intent.getBundleExtra("bundle");
         this.data = (List<SubnetEntity>)bundleExtra.getParcelableArrayList("data").get(0);
+        this.ip = bundleExtra.getString("IpSrc");
+        this.resMask = bundleExtra.getString("resMask");
         final String[] split = bundleExtra.getString("IpSrc").split("\\.");
         for (int i = 0; i < split.length; ++i) {
             this.nowIPStart[i] = (this.IpSrc[i] = Integer.parseInt(split[i]));
@@ -50,7 +56,7 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     }
 
     private void initListView() {
-        this.resultAdapter = new ResultAdapter(this.mContext, this.data);
+        this.resultAdapter = new ResultAdapter(this.mContext, this.data, this.result);
         this.listView.setAdapter(this.resultAdapter);
     }
 

@@ -1,5 +1,7 @@
 package com.gdut.ipdivider.entity;
 
+import com.gdut.ipdivider.tool.IPService;
+
 public class SubNetInfomationBeanDto extends SubNetInfomationBean {
 	
 	private static final long serialVersionUID = 1L;
