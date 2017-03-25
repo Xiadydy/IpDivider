@@ -1,5 +1,7 @@
 package com.gdut.ipdivider.constants;
 
+import android.os.Environment;
+
 import java.io.File;
 
 public class Constant
@@ -17,6 +19,14 @@ public class Constant
     {
         public static final String PROJECT_PATH_ABSOLUTE = File.separator + "IpDivider" + File.separator + "Project";
         public static final String PROJECT_TEXT_PATH_ABSOLUTE = File.separator + "IpDivider" + File.separator + "Text";
-        public static String SD_PATH = null;
+        public static String SD_PATH = setSDPath();
+    }
+
+    public static String setSDPath(){
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        }
+        return null;
     }
 }

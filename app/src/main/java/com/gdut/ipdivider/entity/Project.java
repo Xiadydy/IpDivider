@@ -20,7 +20,6 @@ public class Project
     public Project(String paramString, List<SubNetInfomationBean> result)
     {
         this.projectName = paramString;
-        this.subnetEntityList = new ArrayList<>();
         this.subNetNum = result.size();
         this.time = DateUtil.getCurrentDate();
         this.result = result;
@@ -38,10 +37,6 @@ public class Project
         return this.projectName;
     }
 
-    public int getSubNetNum()
-    {
-        return this.subNetNum;
-    }
 
     public List<SubnetEntity> getSubnetEntityList()
     {
@@ -51,5 +46,9 @@ public class Project
     public String getTime()
     {
         return this.time;
+    }
+
+    public List<SubNetInfomationBean> getResult(){
+        return this.result;
     }
 }

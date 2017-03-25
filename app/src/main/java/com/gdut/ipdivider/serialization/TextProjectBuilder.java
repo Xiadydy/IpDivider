@@ -3,15 +3,18 @@ package com.gdut.ipdivider.serialization;
 import com.gdut.ipdivider.constants.*;
 import java.io.*;
 import com.gdut.ipdivider.entity.*;
+import com.gdut.ipdivider.tool.FileUtil;
+import com.gdut.ipdivider.tool.StatService;
+
 import java.util.*;
 
 public class TextProjectBuilder extends BaseBuilder<Project, String>
 {
-    private static final String WIN_BREAK = "\r\n";
     private String TextProjectPath;
 
     public TextProjectBuilder() {
-        this.TextProjectPath = String.valueOf(Constant.Storage.SD_PATH) + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE;
+        this.TextProjectPath = Constant.Storage.SD_PATH + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE;
+        System.out.println(TextProjectPath);
     }
 
     @Override
@@ -43,16 +46,29 @@ public class TextProjectBuilder extends BaseBuilder<Project, String>
         if (!file.exists()) {
             file.mkdirs();
         }
-        final File file2 = new File(String.valueOf(file.getPath()) + File.separator + project.getProjectName() + ".txt");
+        final File file2 = new File(String.valueOf(file.getAbsolutePath()) + File.separator + project.getProjectName() + ".xls");
+        System.out.println(file2.getAbsoluteFile());
+        List<SubNetInfomationBean> result = project.getResult();
+        List<Map<String, Object>> data = StatService.object2Map(result);
+        FileOutputStream out = null;
         try {
-            System.out.println(file2.toString());
-            final PrintWriter printWriter = new PrintWriter(new FileOutputStream(file2));
-            for (final SubnetEntity subnetEntity : project.getSubnetEntityList()) {
-                printWriter.print("\u5b50\u7f51\uff1a" + subnetEntity.getName() + "\r\n" + "\u7f51\u6bb5\uff1a" + subnetEntity.getSegment() + "\r\n" + "\u8303\u56f4\uff1a" + subnetEntity.getIpRange() + "\r\n" + "\u63a9\u7801\uff1a" + subnetEntity.getMaskNum() + "\r\n" + "\u5df2\u7528\uff1a" + subnetEntity.getIpCount() + "    " + "\u672a\u7528\uff1a" + subnetEntity.getNoUseIPCount() + "\r\n" + "\r\n");
+            out = new FileOutputStream(file2);
+            FileUtil.getInstance().exportExcel(out,data,new String[]{"子网号", "子网别名", "所需IP数量",
+                    "网段地址", "地址范围", "广播地址", "子网掩码", "推荐默认网关", "已用IP数量", "未用IP数量", "剩余地址池"
+            }, new String[]{"subNetId", "subMaskName", "needIpCount", "subNetAdress", "subNetScope",
+                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},null,null);
+        } catch (FileNotFoundException e) {
+            System.err.println("没有该文件");
+            e.printStackTrace();
+        }finally {
+            if(out != null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            printWriter.close();
-        } catch (IOException ex2) {
-            ex2.printStackTrace();
         }
+
     }
 }
