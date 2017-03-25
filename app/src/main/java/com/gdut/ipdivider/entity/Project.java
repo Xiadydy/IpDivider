@@ -3,6 +3,7 @@ package com.gdut.ipdivider.entity;
 import com.gdut.ipdivider.constants.Constant;
 import com.gdut.ipdivider.tool.DateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Project
@@ -13,13 +14,16 @@ public class Project
     private int subNetNum = 0;
     private List<SubnetEntity> subnetEntityList = null;
     private String time = "";
+    //lvdi start
+    private List<SubNetInfomationBean> result;
 
-    public Project(String paramString, List<SubnetEntity> paramList)
+    public Project(String paramString, List<SubNetInfomationBean> result)
     {
         this.projectName = paramString;
-        this.subnetEntityList = paramList;
-        this.subNetNum = paramList.size();
+        this.subnetEntityList = new ArrayList<>();
+        this.subNetNum = result.size();
         this.time = DateUtil.getCurrentDate();
+        this.result = result;
     }
 
     public String getLocalPath()

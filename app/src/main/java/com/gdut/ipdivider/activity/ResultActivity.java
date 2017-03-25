@@ -22,11 +22,10 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     private ImageButton btnBack;
     private ImageButton btnExport;
     private ImageButton btnSave;
-    private List<SubnetEntity> data;
+   // private List<SubnetEntity> data;
     private Intent intent;
     private ListView listView;
     private Context mContext;
-    private int[] nowIPStart;
     private String projectName;
     private ResultAdapter resultAdapter;
     private Dialog toTextdialog;
@@ -34,10 +33,10 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     private String ip;
     private List<SubNetInfomationBean> result;
     private String resMask;
+    private List<SubNetInfomationBeanDto> param;
+    private SubNetInfomationVo vo;
 
     public ResultActivity() {
-        this.IpSrc = new int[4];
-        this.nowIPStart = new int[4];
         this.resMask = "";
         this.ip = "";
     }
@@ -45,18 +44,17 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     private void initData() {
         this.intent = this.getIntent();
         final Bundle bundleExtra = this.intent.getBundleExtra("bundle");
-        this.data = (List<SubnetEntity>)bundleExtra.getParcelableArrayList("data").get(0);
+        this.param = (List<SubNetInfomationBeanDto>)bundleExtra.getParcelableArrayList("data").get(0);
         this.ip = bundleExtra.getString("IpSrc");
         this.resMask = bundleExtra.getString("resMask");
-        final String[] split = bundleExtra.getString("IpSrc").split("\\.");
-        for (int i = 0; i < split.length; ++i) {
-            this.nowIPStart[i] = (this.IpSrc[i] = Integer.parseInt(split[i]));
-            System.out.println(this.IpSrc[i]);
-        }
+        this.vo = new SubNetInfomationVo();
+        vo.setIPAdress(ip);
+        vo.setMask(resMask);
+        vo.setSubNet(this.param);
     }
 
     private void initListView() {
-        this.resultAdapter = new ResultAdapter(this.mContext, this.data, this.result);
+        this.resultAdapter = new ResultAdapter(this.mContext, this.result);
         this.listView.setAdapter(this.resultAdapter);
     }
 
@@ -72,18 +70,9 @@ public class ResultActivity extends BaseActivity implements OnClickListener
     }
 
     private void setData() {
-        for (int i = 0; i < this.data.size(); ++i) {
-            final SubnetEntity subnetEntity = this.data.get(i);
-            subnetEntity.setSegment(IPTool.IPArraytoString(this.nowIPStart), String.valueOf(32 - IPTool.log(subnetEntity.getIpBlockCount(), 2.0)));
-            final int ipBlockCount = subnetEntity.getIpBlockCount();
-            final String ipArraytoString = IPTool.IPArraytoString(IPTool.ipAdd(this.nowIPStart, 1));
-            final int[] ipAdd = IPTool.ipAdd(this.nowIPStart, ipBlockCount - 2);
-            this.nowIPStart = ipAdd;
-            final String ipArraytoString2 = IPTool.IPArraytoString(ipAdd);
-            this.nowIPStart = IPTool.ipAdd(this.nowIPStart, 2);
-            subnetEntity.setIpRange(ipArraytoString, ipArraytoString2);
-            subnetEntity.setMaskNum(IPTool.maskParse2Ip(32 - IPTool.log(subnetEntity.getIpBlockCount(), 2.0)));
-        }
+        IPService service = new IPService();
+        List<SubNetInfomationBeanDto> dtos = service.getAllFiledOfBean(this.vo);
+        this.result = service.getResult(dtos);
     }
 
     @Override
@@ -96,7 +85,7 @@ public class ResultActivity extends BaseActivity implements OnClickListener
                         final TextProjectBuilder textProjectBuilder = new TextProjectBuilder();
                         if (!ResultActivity.this.toTextdialog.getText().trim().equals("")) {
                             projectName = toTextdialog.getText();
-                            textProjectBuilder.deconstruct(new Project(ResultActivity.this.projectName, ResultActivity.this.data));
+                            textProjectBuilder.deconstruct(new Project(ResultActivity.this.projectName, ResultActivity.this.result));
                             ResultActivity.this.toTextdialog.dismiss();
                             SuperToast.makeText(ResultActivity.this.mContext, ResultActivity.this.getString(R.string.export_success), String.valueOf(ResultActivity.this.getString(R.string.export_path)) + ":\n" + "SDcard" + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE + File.separator + ResultActivity.this.projectName + ".txt", 2500).showInCenter();
                             return;
@@ -120,7 +109,7 @@ public class ResultActivity extends BaseActivity implements OnClickListener
                 dialog.setOnSaveListener(new OnClickListener() {
                     public void onClick(final View view) {
                         if (!dialog.getText().trim().equals("")) {
-                            new ProjectBuilder().deconstruct(new Project(dialog.getText(), ResultActivity.this.data));
+                            new ProjectBuilder().deconstruct(new Project(dialog.getText(), ResultActivity.this.result));
                             SuperToast.makeText(ResultActivity.this.mContext, "保存成功", "已把本方案保存在本地", 1000).showInCenter();
                             dialog.dismiss();
                             return;

@@ -10,26 +10,24 @@ import android.widget.*;
 
 public class ResultAdapter extends BaseAdapter
 {
-    private List<SubnetEntity> data;
     private List<SubNetInfomationBean> result;
     private LayoutInflater layoutInflater;
     private Context mContext;
 
-    public ResultAdapter(final Context mContext, final List<SubnetEntity> data, final List<SubNetInfomationBean> result) {
+    public ResultAdapter(final Context mContext, final List<SubNetInfomationBean> result) {
         this.mContext = mContext;
-        this.data = data;
         this.layoutInflater = LayoutInflater.from(mContext);
         this.result = result;
     }
 
     @Override
     public int getCount() {
-        return this.data.size();
+        return this.result.size();
     }
 
     @Override
     public Object getItem(final int n) {
-        return this.data.get(n);
+        return this.result.get(n);
     }
 
     @Override

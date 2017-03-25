@@ -4,6 +4,7 @@ import com.gdut.ipdivider.R;
 import com.gdut.ipdivider.entity.*;
 import com.gdut.ipdivider.adapter.*;
 
+import android.text.TextUtils;
 import android.view.*;
 
 import com.gdut.ipdivider.tool.*;
@@ -25,7 +26,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private ImageButton btnCalculate;
     private ImageButton btnConfirm;
     private ImageButton btnProjrctList;
-    private List<SubnetEntity> data;
     private Context mContext;
     private IpEditText[] resIp;
     private IpEditText resMask;
@@ -35,8 +35,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private int subnetCount;
     private ListView subnetSetting;
     private SubnetSettingAdapter subnetSettingAdapter;
-    private List<SubnetEntity> subnetSettingdata;
-    private int sumIPBlockneed;
+    private List<SubNetInfomationBeanDto> receiveParam;
+    private List<SubNetInfomationBeanDto> params;
     private double sumIPOffer;
     private int sumIPneed;
 
@@ -59,25 +59,21 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     }
 
     private Boolean checkInputAndSetting() {
-        this.data = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
-        this.sumIPBlockneed = 0;
+        this.receiveParam = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
         this.sumIPneed = 0;
-        this.sumIPOffer = Math.pow(2.0, 32.0 - Double.valueOf(this.resMask.getText().toString()));
+        this.sumIPOffer = IPv4Util.getAllIpCount(getIPSrc(), Integer.parseInt(this.resMask.getText().toString()));
         int n = 1;
-        for (final SubnetEntity subnetEntity : this.data) {
-            final int ipCount = subnetEntity.getIpCount();
-            final int calBlockNeedCount = IPTool.calBlockNeedCount(ipCount + 2);
-            subnetEntity.setIpBlockCount(calBlockNeedCount);
-            this.sumIPBlockneed += calBlockNeedCount;
+        for (final SubNetInfomationBeanDto dto: this.receiveParam) {
+            final int ipCount = dto.getNeedIpCount();
             if (ipCount == 0) {
                 SuperToast.makeText(this.mContext, this.getString(R.string.error), String.valueOf(this.getString(R.string.subnet)) + n + this.getString(R.string.required_IP_number_can_not_be_0), 1000).showInCenter();
                 return false;
             }
-            this.sumIPneed += ipCount + 2;
+            this.sumIPneed += ipCount;
             ++n;
         }
         if (this.sumIPneed > this.sumIPOffer) {
-            SuperToast.makeText(this.mContext, this.getString(R.string.warning), this.getString(R.string.IP_not_enough), 1000).showInCenter();
+            SuperToast.makeText(this.mContext, this.getString(R.string.warning), this.getString(R.string.IP_not_enough) + "差"+ (this.sumIPOffer-this.sumIPneed )+ "个ip", 1000).showInCenter();
             return false;
         }
         return true;
@@ -88,11 +84,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private String getIPSrc() {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 4; ++i) {
-            //if (i == 3) {
-            //    sb.append(String.valueOf(String.valueOf(this.dealWithIPsrc(Integer.valueOf(this.resIp[i].getText().toString()), Math.pow(2.0, 32.0 - Double.valueOf(this.resMask.getText().toString()))))) + ".");
-            //} else {
             sb.append(String.valueOf(this.resIp[i].getText().toString().trim()) + ".");
-            //}
         }
         final String string = sb.toString();
         final String substring = string.substring(0, string.length() - 1);
@@ -100,9 +92,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         return substring;
     }
 
-    private int getSubnetNum() {
-        return Integer.parseInt(this.subNetNum.getText().toString());
-    }
 
     private void initView() {
         (this.subNetNum = (IpEditText) this.findViewById(R.id.subnet_count)).setType(IpEditText.TYPE.NETSUBNUM);
@@ -126,7 +115,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         this.resMask.setDoWhitChanged(new IpEditText.DoWhitChanged() {
             @Override
             public void doSth() {
-                MainActivity.this.subNetMaskNum.setText(IPv4Util.getMask(Integer.valueOf(MainActivity.this.resMask.getText().toString().trim())));
+                String mask = MainActivity.this.resMask.getText().toString().trim();
+                if(!TextUtils.isEmpty(mask)){
+                    MainActivity.this.subNetMaskNum.setText(IPv4Util.getMask(Integer.valueOf(mask)));
+                }
             }
         });
     }
@@ -146,11 +138,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                     this.subnetCount = Integer.parseInt(this.subNetNum.getText().toString());
                     this.subnetSetting.setVisibility(VISIBLE);
                     this.stepsDeclare.setVisibility(GONE);
-                    this.subnetSettingdata = new ArrayList<>();
+                    this.params = new ArrayList<>();
                     for (int i = this.subnetCount; i > 0; --i) {
-                        this.subnetSettingdata.add(new SubnetEntity());
+                        this.params.add(new SubNetInfomationBeanDto());
                     }
-                    this.subnetSettingAdapter = new SubnetSettingAdapter(this.mContext, this.subnetSettingdata);
+                    this.subnetSettingAdapter = new SubnetSettingAdapter(this.mContext, this.params);
                     this.subnetSetting.setAdapter(this.subnetSettingAdapter);
                     this.AdjustListView2Full(this.subnetSetting);
                     return;
@@ -162,14 +154,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                     SuperToast.makeText(this.mContext, this.getString(R.string.warning), this.getString(R.string.Please_finish_configuring_before_computing), 2000).showInCenter();
                     return;
                 }
-                this.data = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
-                final ArrayList<List<SubnetEntity>> list = new ArrayList<>();
+                this.receiveParam = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
+                final ArrayList<List<SubNetInfomationBeanDto>> list = new ArrayList<>();
                 final Intent intent = new Intent(this.mContext, (Class) ResultActivity.class);
                 final Bundle bundle = new Bundle();
-                list.add(this.data);
+                list.add(this.receiveParam);
                 bundle.putParcelableArrayList("data", (ArrayList) list);
                 bundle.putString("IpSrc", this.getIPSrc());
-                bundle.putInt("resMask", Integer.parseInt(this.resMask.getText().toString()));
+                bundle.putString("resMask", this.resMask.getText().toString());
                 intent.putExtra("bundle", bundle);
                 if (this.checkInputAndSetting()) {
                     this.startActivity(intent);
@@ -179,9 +171,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
             case R.id.btn_add:
                 if (this.subnetSetting.isShown()) {
-                    this.data = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
-                    this.subnetSettingdata.add(new SubnetEntity());
-                    Log.i("data", new StringBuilder(String.valueOf(this.data.size())).toString());
+                    this.receiveParam = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
+                    this.params.add(new SubNetInfomationBeanDto());
+                    Log.i("params", new StringBuilder(String.valueOf(this.receiveParam.size())).toString());
                     MainActivity.this.subNetNum.setText(String.valueOf(Integer.valueOf(MainActivity.this.subNetNum.getText().toString().trim())+1));
                     this.subnetSettingAdapter.notifyDataSetChanged();
                     this.AdjustListView2Full(this.subnetSetting);
