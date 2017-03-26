@@ -64,7 +64,7 @@ public class TextProjectBuilder extends BaseBuilder<Project, String>
             FileUtil.getInstance().exportExcel(out,data,new String[]{"子网号", "子网别名", "所需IP数量",
                     "网段地址", "地址范围", "广播地址", "子网掩码", "推荐默认网关", "已用IP数量", "未用IP数量", "剩余地址池"
             }, new String[]{"subNetId", "subMaskName", "needIpCount", "subNetAdress", "subNetScope",
-                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},null,null);
+                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},null,null,result);
         } catch (FileNotFoundException e) {
             System.err.println("没有该文件");
             e.printStackTrace();
@@ -103,7 +103,8 @@ public class TextProjectBuilder extends BaseBuilder<Project, String>
             FileUtil.getInstance().exportExcel(out,data,new String[]{"子网号", "子网别名", "所需IP数量",
                     "网段地址", "地址范围", "广播地址", "子网掩码", "推荐默认网关", "已用IP数量", "未用IP数量", "剩余地址池"
             }, new String[]{"subNetId", "subMaskName", "needIpCount", "subNetAdress", "subNetScope",
-                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},null,null);
+                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},
+                    null,null, result);
         } catch (FileNotFoundException e) {
             System.err.println("没有该文件");
             e.printStackTrace();

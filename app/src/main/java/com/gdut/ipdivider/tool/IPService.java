@@ -146,5 +146,11 @@ public class IPService {
 		return result;
 	}
 
-
+	public static String getRestIP(SubNetInfomationBean param){
+		int[] ip = IPv4Util.getIPIntScope(param.getSubNetAdress());
+		int endIP = ip[1];
+		String restIP = IPv4Util.intToIp(endIP + param.getRestAdressPool());
+		String startIP = IPv4Util.intToIp(endIP + 1);
+		return startIP + "~" + restIP;
+	}
 }
