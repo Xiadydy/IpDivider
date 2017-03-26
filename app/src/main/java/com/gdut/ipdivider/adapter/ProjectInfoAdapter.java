@@ -10,22 +10,22 @@ import android.widget.*;
 
 public class ProjectInfoAdapter extends BaseAdapter
 {
-    private List<SubnetEntity> data;
     private LayoutInflater layoutInflater;
+    private List<SubNetInfomationBean> result;
     private Context mContext;
 
-    public ProjectInfoAdapter(final Context mContext, final List<SubnetEntity> data) {
+    public ProjectInfoAdapter(final Context mContext, final List<SubNetInfomationBean> result) {
         this.mContext = mContext;
-        this.data = data;
+        this.result = result;
         this.layoutInflater = LayoutInflater.from(mContext);
     }
 
     public int getCount() {
-        return this.data.size();
+        return this.result.size();
     }
 
     public Object getItem(final int n) {
-        return this.data.get(n);
+        return this.result.get(n);
     }
 
     public long getItemId(final int n) {
@@ -50,12 +50,12 @@ public class ProjectInfoAdapter extends BaseAdapter
             tag = (ViewHolder)inflate.getTag();
         }
         tag.title.setText(String.valueOf(this.mContext.getString(R.string.subnet)) + (n + 1));
-        tag.name.setText(this.data.get(n).getName());
-        tag.segment.setText(this.data.get(n).getSegment());
-        tag.ipRange.setText(this.data.get(n).getIpRange());
-        tag.maskNum.setText(this.data.get(n).getMaskNum());
-        tag.ipCount.setText(String.valueOf(this.data.get(n).getIpCount()));
-        tag.noUseIPCount.setText(String.valueOf(this.data.get(n).getNoUseIPCount()));
+        tag.name.setText(this.result.get(n).getSubMaskName());
+        tag.segment.setText(this.result.get(n).getSubNetAdress());
+        tag.ipRange.setText(this.result.get(n).getSubNetScope());
+        tag.maskNum.setText(this.result.get(n).getMask());
+        tag.ipCount.setText(String.valueOf(this.result.get(n).getNeedIpCount()));
+        tag.noUseIPCount.setText(String.valueOf(this.result.get(n).getNotUseCount()));
         return inflate;
     }
 

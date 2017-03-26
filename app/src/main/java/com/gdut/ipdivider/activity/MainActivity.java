@@ -186,6 +186,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                     this.receiveParam = ((SubnetSettingAdapter) this.subnetSetting.getAdapter()).getData();
                     this.params.add(new SubNetInfomationBeanDto());
                     Log.i("params", new StringBuilder(String.valueOf(this.receiveParam.size())).toString());
+                    if(TextUtils.isEmpty(this.subNetNum.getText())){
+                        SuperToast.makeText(this.mContext, this.getString(R.string.warning),"所需子网数量不能为空", 1000).showInCenter();
+                        return;
+                    }
                     MainActivity.this.subNetNum.setText(String.valueOf(Integer.valueOf(MainActivity.this.subNetNum.getText().toString().trim())+1));
                     this.subnetSettingAdapter.notifyDataSetChanged();
                     this.AdjustListView2Full(this.subnetSetting);

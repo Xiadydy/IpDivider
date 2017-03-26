@@ -9,7 +9,7 @@ public class ProjectBuilder extends BaseBuilder<Project, String>
     private String Projectpath;
 
     public ProjectBuilder() {
-        this.Projectpath = String.valueOf(Constant.Storage.SD_PATH) + Constant.Storage.PROJECT_PATH_ABSOLUTE;
+        this.Projectpath = Constant.Storage.SD_PATH + Constant.Storage.PROJECT_PATH_ABSOLUTE;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class ProjectBuilder extends BaseBuilder<Project, String>
             return (Project)new ObjectInputStream(new FileInputStream(new File(s))).readObject();
         }
         catch (FileNotFoundException ex4) {
-            System.err.println("\u672a\u627e\u5230\u76f8\u5e94\u7684\u6587\u4ef6");
+            System.err.println("文件无法找到");
             return null;
         }
         catch (StreamCorruptedException ex) {

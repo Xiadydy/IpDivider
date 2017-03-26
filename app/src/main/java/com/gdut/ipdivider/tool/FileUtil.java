@@ -83,7 +83,7 @@ public class FileUtil {
 			int rowIndex = 1;
 			int columnIndex = 0;
 			for (String title : titles) {
-				sheet.setColumnView(columnIndex,170);
+				sheet.setColumnView(columnIndex, 25);
 				sheet.addCell(new Label(columnIndex++, 0, title));
 			}
 			String value = null;

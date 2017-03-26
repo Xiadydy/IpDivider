@@ -12,7 +12,7 @@ public class ProjectManager
     private static final String path;
 
     static {
-        path = String.valueOf(Constant.Storage.SD_PATH) + Constant.Storage.PROJECT_PATH_ABSOLUTE;
+        path = Constant.Storage.SD_PATH + Constant.Storage.PROJECT_PATH_ABSOLUTE;
         ProjectManager.allProjectList = null;
     }
 
@@ -25,8 +25,10 @@ public class ProjectManager
             ProjectManager.allProjectList = new ArrayList<Project>();
         }
         ProjectManager.allProjectList.removeAll(ProjectManager.allProjectList);
-        final File file = new File(String.valueOf(Constant.Storage.SD_PATH) + Constant.Storage.PROJECT_PATH_ABSOLUTE);
-        file.mkdirs();
+        final File file = new File(Constant.Storage.SD_PATH + Constant.Storage.PROJECT_PATH_ABSOLUTE);
+        if(!file.exists()){
+            return Collections.emptyList();
+        }
         final File[] listFiles = file.listFiles();
         if (listFiles != null) {
             for (int length = listFiles.length, i = 0; i < length; ++i) {

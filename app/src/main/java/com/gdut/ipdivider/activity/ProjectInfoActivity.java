@@ -40,7 +40,7 @@ public class ProjectInfoActivity extends BaseActivity implements View.OnClickLis
         System.out.println(this.project.getProjectName());
         System.out.println("titleText = " + (this.titleText == null));
         this.titleText.setText(this.project.getProjectName());
-        this.projectInfoAdapter = new ProjectInfoAdapter(this.mContext, this.project.getSubnetEntityList());
+        this.projectInfoAdapter = new ProjectInfoAdapter(this.mContext, this.project.getResult());
         this.subnetListView.setAdapter(this.projectInfoAdapter);
     }
 
@@ -55,9 +55,9 @@ public class ProjectInfoActivity extends BaseActivity implements View.OnClickLis
                         final TextProjectBuilder textProjectBuilder = new TextProjectBuilder();
                         final String text = dialog.getText();
                         if (!text.trim().equals("")) {
-                            textProjectBuilder.deconstruct(ProjectInfoActivity.this.project);
+                            textProjectBuilder.exportProject(ProjectInfoActivity.this.project, text);
                             dialog.dismiss();
-                            SuperToast.makeText(ProjectInfoActivity.this.mContext, ProjectInfoActivity.this.getString(R.string.export_success), String.valueOf(ProjectInfoActivity.this.getString(R.string.export_path)) + ":\n" + "SDcard" + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE + File.separator + text + ".txt", 2500).showInCenter();
+                            SuperToast.makeText(ProjectInfoActivity.this.mContext, ProjectInfoActivity.this.getString(R.string.export_success), String.valueOf(ProjectInfoActivity.this.getString(R.string.export_path)) + ":\n" + Constant.Storage.PROJECT_TEXT_PATH_ABSOLUTE + File.separator + text + ".xls", 2500).showInCenter();
                             return;
                         }
                         SuperToast.makeText(ProjectInfoActivity.this.mContext, ProjectInfoActivity.this.getString(R.string.warning), ProjectInfoActivity.this.getString(R.string.Name_cannot_be_empty), 1000).showInCenter();
@@ -83,4 +83,5 @@ public class ProjectInfoActivity extends BaseActivity implements View.OnClickLis
         this.initView();
         this.setData();
     }
+
 }

@@ -79,4 +79,43 @@ public class TextProjectBuilder extends BaseBuilder<Project, String>
         }
 
     }
+
+    public void exportProject(Project project,String name){
+        final File file = new File(this.TextProjectPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        final File file2 = new File(String.valueOf(file.getAbsolutePath()) + File.separator + name + ".xls");
+        if(!file2.exists()){
+            try {
+                file2.createNewFile();
+            } catch (IOException e) {
+                System.err.println("创建文件失败");
+                e.printStackTrace();
+            }
+        }
+        System.out.println(file2.getAbsoluteFile());
+        List<SubNetInfomationBean> result = project.getResult();
+        List<Map<String, Object>> data = StatService.object2Map(result);
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file2);
+            FileUtil.getInstance().exportExcel(out,data,new String[]{"子网号", "子网别名", "所需IP数量",
+                    "网段地址", "地址范围", "广播地址", "子网掩码", "推荐默认网关", "已用IP数量", "未用IP数量", "剩余地址池"
+            }, new String[]{"subNetId", "subMaskName", "needIpCount", "subNetAdress", "subNetScope",
+                    "broadCastAdress", "mask","defaultGetWay", "alreadyUseConut","notUseCount", "restAdressPool"},null,null);
+        } catch (FileNotFoundException e) {
+            System.err.println("没有该文件");
+            e.printStackTrace();
+        }finally {
+            if(out != null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 }
