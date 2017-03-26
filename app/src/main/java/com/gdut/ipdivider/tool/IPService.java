@@ -9,6 +9,7 @@ import com.gdut.ipdivider.entity.SubNetInfomationBean;
 import com.gdut.ipdivider.entity.SubNetInfomationBeanDto;
 import com.gdut.ipdivider.entity.SubNetInfomationVo;
 
+
 public class IPService {
 
 	//计算算法中的q值并复制回去
@@ -85,10 +86,11 @@ public class IPService {
 	}
 
 	//设置ip剩余地址池
-	public void setRestAdressPool(SubNetInfomationBeanDto param, int ipMask){
-		int left = (int)Math.pow(2.0, ipMask);
-		int right = (int) ((param.getOrderN())*Math.pow(2.0, param.getMValue()));
-		int result = left - right;
+	public void setRestAdressPool(SubNetInfomationBeanDto param, Integer allIpCount){
+		String ip = param.getSubNetAdress();
+		int[] ips = IPv4Util.getIPIntScope(ip);
+		int ipCount = ips[1] - ips[0] + 1;
+		int result = allIpCount - ipCount ;
 		param.setRestAdressPool(result);
 	}
 
@@ -97,6 +99,8 @@ public class IPService {
 		//算法中的x
 		String X = param.getIPAdress();
 		String Y = param.getMask();
+		Integer allIpCount = IPv4Util.getAllIpCount(X,Integer.valueOf(Y));
+		System.out.println(allIpCount);
 		List<SubNetInfomationBeanDto> dtos = param.getSubNet();
 		setSubNetOrderQAndSortOfList(dtos);
 		setMValueOfList(dtos);
@@ -114,7 +118,13 @@ public class IPService {
 			setSubMask(dto);
 			setNetScopeAndBoradCastAddressAndGetWay(dto);
 			setUnuseAddressCount(dto);
-			setRestAdressPool(dto, 32 - Integer.valueOf(Y));
+			if(dto.getOrderN() == 1){
+				setRestAdressPool(dto, allIpCount);
+				allIpCount = dto.getRestAdressPool();
+			}else{
+				setRestAdressPool(dto, allIpCount);
+				allIpCount = dto.getRestAdressPool();
+			}
 		}
 		Collections.sort(dtos, new Comparator<SubNetInfomationBeanDto>() {
 			@Override

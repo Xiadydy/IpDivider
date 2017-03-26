@@ -241,7 +241,7 @@ public class IPv4Util {
 	public static Integer getAllIpCount(String ip, Integer mask){
 		int intIp = IPv4Util.ipToInt(ip);
 		int endIp = intIp + (int)Math.pow(2.0,32-mask) - 1;
-		return endIp - intIp;
+		return endIp - intIp + 1;
 	}
 
 	/**
